@@ -14,6 +14,23 @@ body {
   min-height: 100vh;
 }
 
+/* CHANGE THEME */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #111111;
+}
+
+[data-theme="dark"] {
+  --bg-color: #121212;
+  --text-color: #eeeeee;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+  transition: background-color 0.3s, color 0.3s;
+}
+
 /* ═══════════════════════════════════════════════
    Greeting header
 ═══════════════════════════════════════════════ */
@@ -293,14 +310,107 @@ button:active {
 }
 
 .link-chip .btn-remove-link {
-  background: none;
-  color: #fc8181;
-  font-size: 1rem;
-  padding: 0;
-  line-height: 1;
-  border-radius: 50%;
-  width: 18px;
-  height: 18px;
+/* ═══════════════════════════════════════════════
+   Dark Mode Toggle Button
+═══════════════════════════════════════════════ */
+#btn-theme {
+  margin-top: 14px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 20px;
+  padding: 6px 18px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#btn-theme:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* ═══════════════════════════════════════════════
+   Dark Mode — applied when <body> has .dark
+═══════════════════════════════════════════════ */
+body.dark {
+  background: #0f0f1a;
+  color: #e2e8f0;
+}
+
+body.dark .card {
+  background: #1a1a2e;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+}
+
+body.dark .card h2 {
+  color: #a0aec0;
+}
+
+body.dark .todo-input-row input,
+body.dark .link-input-row input {
+  background: #2d2d44;
+  border-color: #4a4a6a;
+  color: #e2e8f0;
+}
+
+body.dark .todo-input-row input:focus,
+body.dark .link-input-row input:focus {
+  border-color: #667eea;
+}
+
+body.dark .todo-item {
+  background: #2d2d44;
+  border-color: #4a4a6a;
+}
+
+body.dark .todo-item .task-text {
+  color: #e2e8f0;
+}
+
+body.dark .todo-item.done .task-text {
+  color: #718096;
+}
+
+body.dark .todo-item .btn-edit {
+  background: #3d3d5c;
+  color: #cbd5e0;
+}
+
+body.dark .todo-item .btn-edit:hover {
+  background: #4a4a6a;
+}
+
+body.dark #btn-reset {
+  background: #3d3d5c;
+  color: #cbd5e0;
+}
+
+body.dark #btn-reset:hover {
+  background: #4a4a6a;
+}
+
+body.dark .link-chip {
+  background: #1e2a4a;
+  border-color: #2d4080;
+  color: #90cdf4;
+}
+
+body.dark .link-chip:hover {
+  background: #2d3d6a;
+}
+
+body.dark .link-chip a {
+  color: #90cdf4;
+}
+
+/* ═══════════════════════════════════════════════
+   Responsive tweaks
+═══════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  #greeting-msg { font-size: 1.4rem; }
+  #timer-display { font-size: 2.8rem; }
+  .timer-controls { flex-wrap: wrap; }
+} height: 18px;
   display: flex;
   align-items: center;
   justify-content: center;

@@ -14,6 +14,43 @@ function loadLS(key, fallback) {
 }
 
 /* ══════════════════════════════════════════════════════════
+   0. DARK MODE TOGGLE
+══════════════════════════════════════════════════════════ */
+const btnTheme = document.getElementById('btn-theme');
+
+// Load saved preference (default: light)
+if (loadLS('darkMode', false)) {
+  document.body.classList.add('dark');
+  btnTheme.textContent = '☀️ Light Mode';
+}
+
+btnTheme.addEventListener('click', () => {
+  const isDark = document.body.classList.toggle('dark');
+  btnTheme.textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
+  saveLS('darkMode', isDark);
+});
+
+
+// CHANGE THEME
+const toggleBtn = document.getElementById('theme-toggle');
+const root = document.documentElement;
+
+// Check saved preference or fallback to system
+const savedTheme = localStorage.getItem('theme');
+if (savedTheme) {
+  root.setAttribute('data-theme', savedTheme);
+}
+
+toggleBtn.addEventListener('click', () => {
+  const currentTheme = root.getAttribute('data-theme');
+  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+  
+  root.setAttribute('data-theme', newTheme);
+  localStorage.setItem('theme', newTheme);
+});
+
+
+/* ══════════════════════════════════════════════════════════
    1. GREETING — time, date, and time-of-day message
 ══════════════════════════════════════════════════════════ */
 const greetingMsg = document.getElementById('greeting-msg');
