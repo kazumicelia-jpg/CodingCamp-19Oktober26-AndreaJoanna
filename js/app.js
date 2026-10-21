@@ -61,18 +61,58 @@ updateClock();
 setInterval(updateClock, 1000);
 
 /* ══════════════════════════════════════════════════════════
-   2. FOCUS TIMER — 25 min countdown
+   2. FOCUS TIMER — customizable countdown
 ══════════════════════════════════════════════════════════ */
-const FOCUS_SECONDS = 25 * 60;
+const PRESETS = [5, 10, 15, 25, 45, 60]; // available preset durations (minutes)
 
-const timerDisplay = document.getElementById('timer-display');
-const btnStart     = document.getElementById('btn-start');
-const btnStop      = document.getElementById('btn-stop');
-const btnReset     = document.getElementById('btn-reset');
+const timerDisplay     = document.getElementById('timer-display');
+const btnStart         = document.getElementById('btn-start');
+const btnStop          = document.getElementById('btn-stop');
+const btnReset         = document.getElementById('btn-reset');
+const durationInput    = document.getElementById('duration-input');
+const btnApplyDuration = document.getElementById('btn-apply-duration');
 
 let timerInterval = null;
-let secondsLeft   = FOCUS_SECONDS;
 let timerRunning  = false;
+let focusMinutes  = 25;       // current duration in minutes
+let focusSeconds  = 25 * 60; // current duration in seconds
+let secondsLeft   = focusSeconds;
+
+// ── Duration helpers ──────────────────────────────────────
+
+function validateDuration(value) {
+  const n = parseInt(value, 10);
+  return Number.isInteger(n) && n >= 1 && n <= 120;
+}
+
+function syncDurationUI(activeMinutes) {
+  // Highlight matching preset button, clear others
+  document.querySelectorAll('.btn-preset').forEach(btn => {
+    btn.classList.toggle('active', parseInt(btn.dataset.minutes, 10) === activeMinutes);
+  });
+  durationInput.value = activeMinutes;
+}
+
+function setDuration(minutes) {
+  focusMinutes = minutes;
+  focusSeconds = minutes * 60;
+  secondsLeft  = focusSeconds;
+  saveLS('timerDuration', minutes);
+  stopTimer();                  // reset running state
+  timerDisplay.classList.remove('running', 'stopped');
+  renderTimer();
+  syncDurationUI(minutes);
+}
+
+function loadDuration() {
+  const saved = loadLS('timerDuration', 25);
+  // Guard against corrupt LocalStorage values
+  focusMinutes = validateDuration(saved) ? saved : 25;
+  focusSeconds = focusMinutes * 60;
+  secondsLeft  = focusSeconds;
+}
+
+// ── Timer core ────────────────────────────────────────────
 
 function formatTime(secs) {
   const m = String(Math.floor(secs / 60)).padStart(2, '0');
@@ -83,7 +123,7 @@ function formatTime(secs) {
 function renderTimer() {
   timerDisplay.textContent = formatTime(secondsLeft);
   timerDisplay.classList.toggle('running', timerRunning);
-  timerDisplay.classList.toggle('stopped', !timerRunning && secondsLeft < FOCUS_SECONDS);
+  timerDisplay.classList.toggle('stopped', !timerRunning && secondsLeft < focusSeconds);
 }
 
 function startTimer() {
@@ -112,11 +152,48 @@ function stopTimer() {
 
 function resetTimer() {
   stopTimer();
-  secondsLeft = FOCUS_SECONDS;
+  secondsLeft = focusSeconds;
   timerDisplay.classList.remove('running', 'stopped');
   renderTimer();
 }
 
+// ── Event handlers ────────────────────────────────────────
+
+// Preset buttons — render from PRESETS array
+const pickerEl = document.querySelector('.duration-picker');
+PRESETS.forEach(min => {
+  const btn = pickerEl.querySelector(`[data-minutes="${min}"]`);
+  if (btn) {
+    btn.addEventListener('click', () => {
+      if (timerRunning) stopTimer();
+      setDuration(min);
+    });
+  }
+});
+
+// Custom Apply button
+function handleCustomApply() {
+  const raw = durationInput.value;
+  if (!validateDuration(raw)) {
+    durationInput.classList.add('input-error');
+    return;
+  }
+  durationInput.classList.remove('input-error');
+  if (timerRunning) stopTimer();
+  setDuration(parseInt(raw, 10));
+}
+
+btnApplyDuration.addEventListener('click', handleCustomApply);
+durationInput.addEventListener('keydown', e => { if (e.key === 'Enter') handleCustomApply(); });
+
+btnStart.addEventListener('click', startTimer);
+btnStop.addEventListener('click', stopTimer);
+btnReset.addEventListener('click', resetTimer);
+
+// ── Init ──────────────────────────────────────────────────
+loadDuration();
+renderTimer();
+syncDurationUI(focusMinutes);
 btnStart.addEventListener('click', startTimer);
 btnStop.addEventListener('click', stopTimer);
 btnReset.addEventListener('click', resetTimer);

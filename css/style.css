@@ -147,6 +147,153 @@ button:active {
 #btn-reset { background: #edf2f7; color: #4a5568; }
 #btn-reset:hover { background: #e2e8f0; }
 
+/* Duration picker — preset buttons */
+.duration-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  justify-content: center;
+  margin-bottom: 10px;
+}
+
+.btn-preset {
+  background: #edf2f7;
+  color: #4a5568;
+  padding: 5px 10px;
+  font-size: 0.8rem;
+  border-radius: 6px;
+}
+
+.btn-preset:hover { background: #e2e8f0; }
+
+.btn-preset.active {
+  background: #667eea;
+  color: #fff;
+}
+
+/* Custom duration input row */
+.duration-custom-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+#duration-input {
+  width: 64px;
+  padding: 6px 8px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  text-align: center;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+#duration-input:focus { border-color: #667eea; }
+#duration-input.input-error { border-color: #e53e3e; }
+
+.duration-label { font-size: 0.9rem; color: #718096; }
+
+#btn-apply-duration { background: #667eea; color: #fff; }
+#btn-apply-duration:hover { background: #5a67d8; }
+
+/* Dark mode — duration picker */
+body.dark .btn-preset {
+  background: #3d3d5c;
+  color: #cbd5e0;
+}
+
+body.dark .btn-preset:hover { background: #4a4a6a; }
+
+body.dark .btn-preset.active {
+  background: #667eea;
+  color: #fff;
+}
+
+body.dark #duration-input {
+  background: #2d2d44;
+  border-color: #4a4a6a;
+  color: #e2e8f0;
+}
+
+body.dark .duration-label { color: #a0aec0; }
+  justify-content: center;
+  margin-bottom: 16px;
+}
+
+#duration-input {
+  width: 64px;
+  padding: 6px 8px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  text-align: center;
+  outline: none;
+}
+
+#duration-input:focus { border-color: #667eea; }
+
+#duration-input.input-error { border-color: #e53e3e; }
+
+.duration-label { font-size: 0.9rem; color: #718096; }
+
+#btn-apply-duration { background: #667eea; color: #fff; }
+#btn-apply-duration:hover { background: #5a67d8; }
+
+/* Dark mode additions */
+body.dark .btn-preset {
+  background: #3d3d5c;
+  color: #cbd5e0;
+}
+
+body.dark .btn-preset:hover { background: #4a4a6a; }
+
+body.dark .btn-preset.active {
+  background: #667eea;
+  color: #fff;
+}
+
+body.dark #duration-input {
+  background: #2d2d44;
+  border-color: #4a4a6a;
+  color: #e2e8f0;
+}
+
+/* //// */
+#timer-display {
+  font-size: 3.5rem;
+  font-weight: 700;
+  text-align: center;
+  color: #667eea;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+#timer-display.running {
+  color: #48bb78;
+}
+
+#timer-display.stopped {
+  color: #e53e3e;
+}
+
+.timer-controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+/* HOVERING */
+#btn-start { background: #48bb78; color: #fff; }
+#btn-start:hover { background: #38a169; }
+
+#btn-stop  { background: #e53e3e; color: #fff; }
+#btn-stop:hover { background: #c53030; }
+
+#btn-reset { background: #edf2f7; color: #4a5568; }
+#btn-reset:hover { background: #e2e8f0; }
+
 /* ═══════════════════════════════════════════════
    To-Do List
 ═══════════════════════════════════════════════ */
