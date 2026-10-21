@@ -1,0 +1,320 @@
+/* ═══════════════════════════════════════════════
+   Reset & base
+═══════════════════════════════════════════════ */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #f0f4f8;
+  color: #2d3748;
+  min-height: 100vh;
+}
+
+/* ═══════════════════════════════════════════════
+   Greeting header
+═══════════════════════════════════════════════ */
+.greeting-section {
+  background: linear-gradient(135deg, #667eea, #764ba2);
+  color: #fff;
+  padding: 32px 24px 28px;
+  text-align: center;
+}
+
+#greeting-msg {
+  font-size: 1.8rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+#datetime {
+  font-size: 1rem;
+  opacity: 0.85;
+  margin-top: 6px;
+}
+
+/* ═══════════════════════════════════════════════
+   Dashboard grid
+═══════════════════════════════════════════════ */
+.dashboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 24px;
+  max-width: 1100px;
+  margin: 32px auto;
+  padding: 0 20px 40px;
+}
+
+/* ═══════════════════════════════════════════════
+   Card
+═══════════════════════════════════════════════ */
+.card {
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.card h2 {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: #4a5568;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ═══════════════════════════════════════════════
+   Buttons (shared)
+═══════════════════════════════════════════════ */
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  padding: 8px 16px;
+  transition: background 0.15s, transform 0.1s;
+}
+
+button:active {
+  transform: scale(0.96);
+}
+
+/* ═══════════════════════════════════════════════
+   Focus Timer
+═══════════════════════════════════════════════ */
+#timer-display {
+  font-size: 3.5rem;
+  font-weight: 700;
+  text-align: center;
+  color: #667eea;
+  letter-spacing: 2px;
+  margin-bottom: 20px;
+}
+
+#timer-display.running {
+  color: #48bb78;
+}
+
+#timer-display.stopped {
+  color: #e53e3e;
+}
+
+.timer-controls {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+#btn-start { background: #48bb78; color: #fff; }
+#btn-start:hover { background: #38a169; }
+
+#btn-stop  { background: #e53e3e; color: #fff; }
+#btn-stop:hover { background: #c53030; }
+
+#btn-reset { background: #edf2f7; color: #4a5568; }
+#btn-reset:hover { background: #e2e8f0; }
+
+/* ═══════════════════════════════════════════════
+   To-Do List
+═══════════════════════════════════════════════ */
+.todo-input-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.todo-input-row input {
+  flex: 1;
+  padding: 8px 12px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.todo-input-row input:focus {
+  border-color: #667eea;
+}
+
+#btn-add-task {
+  background: #667eea;
+  color: #fff;
+}
+
+#btn-add-task:hover {
+  background: #5a67d8;
+}
+
+/* Task list */
+#todo-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.todo-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #f7fafc;
+  border-radius: 8px;
+  padding: 10px 12px;
+  border: 1px solid #e2e8f0;
+}
+
+.todo-item input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #667eea;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.todo-item .task-text {
+  flex: 1;
+  font-size: 0.9rem;
+  word-break: break-word;
+}
+
+.todo-item.done .task-text {
+  text-decoration: line-through;
+  color: #a0aec0;
+}
+
+/* inline edit input */
+.todo-item .edit-input {
+  flex: 1;
+  border: 1px solid #667eea;
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.todo-item .btn-edit {
+  background: #edf2f7;
+  color: #4a5568;
+  padding: 5px 10px;
+  font-size: 0.8rem;
+}
+
+.todo-item .btn-edit:hover {
+  background: #e2e8f0;
+}
+
+.todo-item .btn-save {
+  background: #48bb78;
+  color: #fff;
+  padding: 5px 10px;
+  font-size: 0.8rem;
+}
+
+.todo-item .btn-save:hover {
+  background: #38a169;
+}
+
+.todo-item .btn-delete {
+  background: #fed7d7;
+  color: #c53030;
+  padding: 5px 10px;
+  font-size: 0.8rem;
+}
+
+.todo-item .btn-delete:hover {
+  background: #feb2b2;
+}
+
+/* ═══════════════════════════════════════════════
+   Quick Links
+═══════════════════════════════════════════════ */
+.link-input-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.link-input-row input {
+  flex: 1;
+  min-width: 120px;
+  padding: 8px 12px;
+  border: 2px solid #e2e8f0;
+  border-radius: 8px;
+  font-size: 0.9rem;
+  outline: none;
+  transition: border-color 0.15s;
+}
+
+.link-input-row input:focus {
+  border-color: #667eea;
+}
+
+#btn-add-link {
+  background: #667eea;
+  color: #fff;
+}
+
+#btn-add-link:hover {
+  background: #5a67d8;
+}
+
+#links-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.link-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #ebf4ff;
+  border: 1px solid #bee3f8;
+  border-radius: 30px;
+  padding: 6px 14px;
+  font-size: 0.85rem;
+  color: #2b6cb0;
+  text-decoration: none;
+  font-weight: 600;
+  transition: background 0.15s;
+}
+
+.link-chip:hover {
+  background: #bee3f8;
+}
+
+.link-chip .btn-remove-link {
+  background: none;
+  color: #fc8181;
+  font-size: 1rem;
+  padding: 0;
+  line-height: 1;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.link-chip .btn-remove-link:hover {
+  color: #e53e3e;
+}
+
+/* ═══════════════════════════════════════════════
+   Responsive tweaks
+═══════════════════════════════════════════════ */
+@media (max-width: 480px) {
+  #greeting-msg { font-size: 1.4rem; }
+  #timer-display { font-size: 2.8rem; }
+  .timer-controls { flex-wrap: wrap; }
+}

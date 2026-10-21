@@ -3,321 +3,55 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Clicker Quest</title>
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body {
-      background: #1a1a2e;
-      color: #eee;
-      font-family: 'Segoe UI', sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      min-height: 100vh;
-      padding: 24px 16px;
-    }
-
-    h1 {
-      font-size: 2rem;
-      color: #f5c842;
-      letter-spacing: 2px;
-      margin-bottom: 8px;
-    }
-
-    /* ── Coin display ── */
-    #coin-display {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      font-size: 1.4rem;
-      background: #16213e;
-      border: 2px solid #f5c842;
-      border-radius: 40px;
-      padding: 8px 24px;
-      margin-bottom: 8px;
-    }
-
-    #coin-display .coin-icon {
-      font-size: 1.6rem;
-    }
-
-    #coin-count {
-      font-weight: 700;
-      color: #f5c842;
-    }
-
-    #cps-label {
-      font-size: 0.85rem;
-      color: #aaa;
-      margin-bottom: 20px;
-    }
-
-    /* ── Character card ── */
-    #character-area {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-bottom: 32px;
-    }
-
-    #character-btn {
-      background: none;
-      border: none;
-      cursor: pointer;
-      transition: transform 0.08s ease, filter 0.08s ease;
-      outline: none;
-      user-select: none;
-    }
-
-    #character-btn:active {
-      transform: scale(0.88);
-      filter: brightness(1.3);
-    }
-
-    #character-btn .character-emoji {
-      font-size: 7rem;
-      display: block;
-      filter: drop-shadow(0 0 16px #f5c84288);
-    }
-
-    #character-name {
-      margin-top: 8px;
-      font-size: 1rem;
-      color: #bbb;
-      letter-spacing: 1px;
-    }
-
-    /* Floating +N text */
-    .float-text {
-      position: fixed;
-      font-size: 1.4rem;
-      font-weight: 700;
-      color: #f5c842;
-      pointer-events: none;
-      animation: floatUp 0.9s ease forwards;
-      z-index: 100;
-    }
-
-    @keyframes floatUp {
-      0%   { opacity: 1; transform: translateY(0) scale(1); }
-      100% { opacity: 0; transform: translateY(-80px) scale(1.4); }
-    }
-
-    /* ── Shop ── */
-    #shop {
-      width: 100%;
-      max-width: 420px;
-    }
-
-    #shop h2 {
-      font-size: 1.1rem;
-      color: #f5c842;
-      text-transform: uppercase;
-      letter-spacing: 2px;
-      margin-bottom: 14px;
-      text-align: center;
-    }
-
-    .booster-card {
-      background: #16213e;
-      border: 2px solid #0f3460;
-      border-radius: 14px;
-      padding: 16px 20px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      transition: border-color 0.2s;
-    }
-
-    .booster-card:hover {
-      border-color: #f5c842;
-    }
-
-    .booster-card .booster-icon {
-      font-size: 2.4rem;
-    }
-
-    .booster-info {
-      flex: 1;
-    }
-
-    .booster-info h3 {
-      font-size: 1rem;
-      color: #eee;
-    }
-
-    .booster-info p {
-      font-size: 0.8rem;
-      color: #888;
-      margin-top: 3px;
-    }
-
-    .booster-info .booster-level {
-      font-size: 0.75rem;
-      color: #f5c842;
-      margin-top: 4px;
-    }
-
-    .buy-btn {
-      background: #f5c842;
-      color: #1a1a2e;
-      border: none;
-      border-radius: 10px;
-      padding: 8px 16px;
-      font-size: 0.9rem;
-      font-weight: 700;
-      cursor: pointer;
-      white-space: nowrap;
-      transition: background 0.2s, transform 0.1s;
-    }
-
-    .buy-btn:hover:not(:disabled) {
-      background: #ffd84d;
-      transform: scale(1.05);
-    }
-
-    .buy-btn:disabled {
-      background: #444;
-      color: #666;
-      cursor: not-allowed;
-    }
-
-    /* Active multiplier badge */
-    #multiplier-badge {
-      display: none;
-      background: #e94560;
-      color: #fff;
-      font-size: 0.75rem;
-      font-weight: 700;
-      border-radius: 20px;
-      padding: 2px 10px;
-      margin-top: 6px;
-    }
-
-    #multiplier-badge.active {
-      display: inline-block;
-      animation: pulse 1s ease infinite alternate;
-    }
-
-    @keyframes pulse {
-      from { opacity: 0.7; }
-      to   { opacity: 1; }
-    }
-  </style>
+  <title>My Dashboard</title>
+  <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-  <h1>🪙 Clicker Quest</h1>
-
-  <!-- Coin counter -->
-  <div id="coin-display">
-    <span class="coin-icon">🪙</span>
-    <span id="coin-count">0</span> coins
-  </div>
-  <div id="cps-label">+<span id="coins-per-click">1</span> per click</div>
-
-  <!-- Character -->
-  <div id="character-area">
-    <button id="character-btn" title="Click the wizard!">
-      <span class="character-emoji">🧙</span>
-    </button>
-    <div id="character-name">Zephyr the Wizard</div>
-    <span id="multiplier-badge">2× ACTIVE</span>
-  </div>
-
-  <!-- Shop -->
-  <div id="shop">
-    <h2>🛒 Shop</h2>
-    <div class="booster-card" id="booster-double">
-      <span class="booster-icon">⚡</span>
-      <div class="booster-info">
-        <h3>Double Strike</h3>
-        <p>Doubles coins earned per click.</p>
-        <div class="booster-level" id="booster-level-text">Level 0</div>
-      </div>
-      <button class="buy-btn" id="buy-btn" disabled>
-        🪙 <span id="buy-cost">50</span>
-      </button>
+  <!-- ── GREETING ─────────────────────────────────────── -->
+  <header class="greeting-section">
+    <div class="greeting-text">
+      <p id="greeting-msg">Good morning!</p>
+      <p id="datetime"></p>
     </div>
-  </div>
+  </header>
 
-  <script>
-    // ── State ──────────────────────────────────────────────
-    const state = {
-      coins: 0,
-      coinsPerClick: 1,
-      boosterLevel: 0,        // how many times the booster was purchased
-      boosterBaseCost: 50,    // starting cost
-      boosterCost: 50,        // current cost (scales up each purchase)
-    };
+  <main class="dashboard">
 
-    // ── DOM refs ───────────────────────────────────────────
-    const coinCountEl      = document.getElementById('coin-count');
-    const coinsPerClickEl  = document.getElementById('coins-per-click');
-    const characterBtn     = document.getElementById('character-btn');
-    const buyBtn           = document.getElementById('buy-btn');
-    const buyCostEl        = document.getElementById('buy-cost');
-    const boosterLevelEl   = document.getElementById('booster-level-text');
-    const multiplierBadge  = document.getElementById('multiplier-badge');
+    <!-- ── FOCUS TIMER ──────────────────────────────────── -->
+    <section class="card" id="timer-card">
+      <h2>⏱ Focus Timer</h2>
+      <div id="timer-display">25:00</div>
+      <div class="timer-controls">
+        <button id="btn-start">Start</button>
+        <button id="btn-stop">Stop</button>
+        <button id="btn-reset">Reset</button>
+      </div>
+    </section>
 
-    // ── Helpers ────────────────────────────────────────────
-    function formatNumber(n) {
-      if (n >= 1_000_000) return (n / 1_000_000).toFixed(1) + 'M';
-      if (n >= 1_000)     return (n / 1_000).toFixed(1) + 'K';
-      return n.toString();
-    }
+    <!-- ── TO-DO LIST ────────────────────────────────────── -->
+    <section class="card" id="todo-card">
+      <h2>📝 To-Do List</h2>
+      <div class="todo-input-row">
+        <input type="text" id="todo-input" placeholder="Add a new task…" maxlength="120" />
+        <button id="btn-add-task">Add</button>
+      </div>
+      <ul id="todo-list"></ul>
+    </section>
 
-    function updateUI() {
-      coinCountEl.textContent     = formatNumber(state.coins);
-      coinsPerClickEl.textContent = state.coinsPerClick;
-      buyCostEl.textContent       = formatNumber(state.boosterCost);
-      boosterLevelEl.textContent  = `Level ${state.boosterLevel}`;
-      buyBtn.disabled             = state.coins < state.boosterCost;
+    <!-- ── QUICK LINKS ───────────────────────────────────── -->
+    <section class="card" id="links-card">
+      <h2>🔗 Quick Links</h2>
+      <div class="link-input-row">
+        <input type="text" id="link-name-input" placeholder="Label (e.g. YouTube)" maxlength="30" />
+        <input type="url"  id="link-url-input"  placeholder="https://…" />
+        <button id="btn-add-link">Add</button>
+      </div>
+      <div id="links-grid"></div>
+    </section>
 
-      if (state.boosterLevel > 0) {
-        multiplierBadge.classList.add('active');
-        multiplierBadge.textContent = `${state.coinsPerClick}× ACTIVE`;
-      }
-    }
+  </main>
 
-    function spawnFloatText(x, y, value) {
-      const el = document.createElement('div');
-      el.className   = 'float-text';
-      el.textContent = `+${value}`;
-      el.style.left  = `${x - 16}px`;
-      el.style.top   = `${y - 20}px`;
-      document.body.appendChild(el);
-      el.addEventListener('animationend', () => el.remove());
-    }
-
-    // ── Click handler ──────────────────────────────────────
-    characterBtn.addEventListener('click', (e) => {
-      state.coins += state.coinsPerClick;
-      spawnFloatText(e.clientX, e.clientY, state.coinsPerClick);
-      updateUI();
-    });
-
-    // ── Buy booster ────────────────────────────────────────
-    buyBtn.addEventListener('click', () => {
-      if (state.coins < state.boosterCost) return;
-
-      state.coins        -= state.boosterCost;
-      state.boosterLevel += 1;
-      state.coinsPerClick = Math.pow(2, state.boosterLevel); // 2, 4, 8, ...
-
-      // Each purchase costs 3× more than the last
-      state.boosterCost = Math.floor(state.boosterBaseCost * Math.pow(3, state.boosterLevel));
-
-      updateUI();
-    });
-
-    // ── Init ───────────────────────────────────────────────
-    updateUI();
-  </script>
+  <script src="js/app.js"></script>
 </body>
 </html>
