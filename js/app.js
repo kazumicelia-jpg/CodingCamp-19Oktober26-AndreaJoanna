@@ -1,6 +1,6 @@
 /* ═══════════════════════════════════════════════════════════
    app.js — Personal Dashboard
-   Sections: Greeting · Focus Timer · To-Do List · Quick Links
+   Sections: Dark Mode · Greeting · Focus Timer · To-Do List · Quick Links
 ═══════════════════════════════════════════════════════════ */
 
 /* ── Utility: Local Storage helpers ─────────────────────── */
@@ -18,7 +18,7 @@ function loadLS(key, fallback) {
 ══════════════════════════════════════════════════════════ */
 const btnTheme = document.getElementById('btn-theme');
 
-// Load saved preference (default: light)
+// Apply saved preference on load
 if (loadLS('darkMode', false)) {
   document.body.classList.add('dark');
   btnTheme.textContent = '☀️ Light Mode';
@@ -29,26 +29,6 @@ btnTheme.addEventListener('click', () => {
   btnTheme.textContent = isDark ? '☀️ Light Mode' : '🌙 Dark Mode';
   saveLS('darkMode', isDark);
 });
-
-
-// CHANGE THEME
-const toggleBtn = document.getElementById('theme-toggle');
-const root = document.documentElement;
-
-// Check saved preference or fallback to system
-const savedTheme = localStorage.getItem('theme');
-if (savedTheme) {
-  root.setAttribute('data-theme', savedTheme);
-}
-
-toggleBtn.addEventListener('click', () => {
-  const currentTheme = root.getAttribute('data-theme');
-  const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-  
-  root.setAttribute('data-theme', newTheme);
-  localStorage.setItem('theme', newTheme);
-});
-
 
 /* ══════════════════════════════════════════════════════════
    1. GREETING — time, date, and time-of-day message
@@ -90,9 +70,9 @@ const btnStart     = document.getElementById('btn-start');
 const btnStop      = document.getElementById('btn-stop');
 const btnReset     = document.getElementById('btn-reset');
 
-let timerInterval  = null;
-let secondsLeft    = FOCUS_SECONDS;
-let timerRunning   = false;
+let timerInterval = null;
+let secondsLeft   = FOCUS_SECONDS;
+let timerRunning  = false;
 
 function formatTime(secs) {
   const m = String(Math.floor(secs / 60)).padStart(2, '0');
@@ -147,9 +127,9 @@ renderTimer();
    3. TO-DO LIST
    Data shape: [{ id, text, done }]
 ══════════════════════════════════════════════════════════ */
-const todoInput   = document.getElementById('todo-input');
-const btnAddTask  = document.getElementById('btn-add-task');
-const todoListEl  = document.getElementById('todo-list');
+const todoInput  = document.getElementById('todo-input');
+const btnAddTask = document.getElementById('btn-add-task');
+const todoListEl = document.getElementById('todo-list');
 
 let tasks = loadLS('tasks', []);
 
@@ -165,30 +145,30 @@ function renderTasks() {
   todoListEl.innerHTML = '';
   tasks.forEach(task => {
     const li = document.createElement('li');
-    li.className = 'todo-item' + (task.done ? ' done' : '');
+    li.className  = 'todo-item' + (task.done ? ' done' : '');
     li.dataset.id = task.id;
 
     // Checkbox
-    const checkbox = document.createElement('input');
-    checkbox.type    = 'checkbox';
-    checkbox.checked = task.done;
+    const checkbox     = document.createElement('input');
+    checkbox.type      = 'checkbox';
+    checkbox.checked   = task.done;
     checkbox.setAttribute('aria-label', 'Mark task done');
     checkbox.addEventListener('change', () => toggleTask(task.id));
 
     // Text span
-    const span = document.createElement('span');
+    const span       = document.createElement('span');
     span.className   = 'task-text';
     span.textContent = task.text;
 
     // Edit button
-    const btnEdit = document.createElement('button');
+    const btnEdit       = document.createElement('button');
     btnEdit.className   = 'btn-edit';
     btnEdit.textContent = 'Edit';
     btnEdit.setAttribute('aria-label', 'Edit task');
     btnEdit.addEventListener('click', () => startEditTask(task.id, li, span, btnEdit));
 
     // Delete button
-    const btnDelete = document.createElement('button');
+    const btnDelete       = document.createElement('button');
     btnDelete.className   = 'btn-delete';
     btnDelete.textContent = '✕';
     btnDelete.setAttribute('aria-label', 'Delete task');
@@ -221,14 +201,13 @@ function deleteTask(id) {
 }
 
 function startEditTask(id, li, span, btnEdit) {
-  // Replace span with an input
-  const editInput = document.createElement('input');
+  const editInput     = document.createElement('input');
   editInput.type      = 'text';
   editInput.className = 'edit-input';
   editInput.value     = span.textContent;
   editInput.maxLength = 120;
 
-  const btnSave = document.createElement('button');
+  const btnSave       = document.createElement('button');
   btnSave.className   = 'btn-save';
   btnSave.textContent = 'Save';
   btnSave.setAttribute('aria-label', 'Save task');
@@ -271,17 +250,16 @@ function saveLinks() {
 function renderLinks() {
   linksGrid.innerHTML = '';
   links.forEach(link => {
-    // Wrapper (not an <a> so we can nest the remove button safely)
-    const chip = document.createElement('div');
+    const chip     = document.createElement('div');
     chip.className = 'link-chip';
 
-    const anchor = document.createElement('a');
-    anchor.href        = link.url;
+    const anchor   = document.createElement('a');
+    anchor.href    = link.url;
     anchor.textContent = link.label;
-    anchor.target      = '_blank';
-    anchor.rel         = 'noopener noreferrer';
+    anchor.target  = '_blank';
+    anchor.rel     = 'noopener noreferrer';
 
-    const btnRemove = document.createElement('button');
+    const btnRemove       = document.createElement('button');
     btnRemove.className   = 'btn-remove-link';
     btnRemove.textContent = '×';
     btnRemove.setAttribute('aria-label', `Remove ${link.label}`);

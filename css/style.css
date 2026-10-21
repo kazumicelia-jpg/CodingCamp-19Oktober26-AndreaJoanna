@@ -12,23 +12,7 @@ body {
   background: #f0f4f8;
   color: #2d3748;
   min-height: 100vh;
-}
-
-/* CHANGE THEME */
-:root {
-  --bg-color: #ffffff;
-  --text-color: #111111;
-}
-
-[data-theme="dark"] {
-  --bg-color: #121212;
-  --text-color: #eeeeee;
-}
-
-body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
-  transition: background-color 0.3s, color 0.3s;
+  transition: background 0.3s, color 0.3s;
 }
 
 /* ═══════════════════════════════════════════════
@@ -54,6 +38,25 @@ body {
 }
 
 /* ═══════════════════════════════════════════════
+   Dark Mode Toggle Button
+═══════════════════════════════════════════════ */
+#btn-theme {
+  margin-top: 14px;
+  background: rgba(255, 255, 255, 0.2);
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 20px;
+  padding: 6px 18px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#btn-theme:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+/* ═══════════════════════════════════════════════
    Dashboard grid
 ═══════════════════════════════════════════════ */
 .dashboard {
@@ -73,6 +76,7 @@ body {
   border-radius: 16px;
   padding: 24px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  transition: background 0.3s, box-shadow 0.3s;
 }
 
 .card h2 {
@@ -186,6 +190,7 @@ button:active {
   border-radius: 8px;
   padding: 10px 12px;
   border: 1px solid #e2e8f0;
+  transition: background 0.3s, border-color 0.3s;
 }
 
 .todo-item input[type="checkbox"] {
@@ -310,23 +315,21 @@ button:active {
 }
 
 .link-chip .btn-remove-link {
-/* ═══════════════════════════════════════════════
-   Dark Mode Toggle Button
-═══════════════════════════════════════════════ */
-#btn-theme {
-  margin-top: 14px;
-  background: rgba(255, 255, 255, 0.2);
-  color: #fff;
-  border: 2px solid rgba(255, 255, 255, 0.5);
-  border-radius: 20px;
-  padding: 6px 18px;
-  font-size: 0.85rem;
-  cursor: pointer;
-  transition: background 0.2s;
+  background: none;
+  color: #fc8181;
+  font-size: 1rem;
+  padding: 0;
+  line-height: 1;
+  border-radius: 50%;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-#btn-theme:hover {
-  background: rgba(255, 255, 255, 0.35);
+.link-chip .btn-remove-link:hover {
+  color: #e53e3e;
 }
 
 /* ═══════════════════════════════════════════════
@@ -401,23 +404,6 @@ body.dark .link-chip:hover {
 
 body.dark .link-chip a {
   color: #90cdf4;
-}
-
-/* ═══════════════════════════════════════════════
-   Responsive tweaks
-═══════════════════════════════════════════════ */
-@media (max-width: 480px) {
-  #greeting-msg { font-size: 1.4rem; }
-  #timer-display { font-size: 2.8rem; }
-  .timer-controls { flex-wrap: wrap; }
-} height: 18px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.link-chip .btn-remove-link:hover {
-  color: #e53e3e;
 }
 
 /* ═══════════════════════════════════════════════
