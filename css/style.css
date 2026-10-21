@@ -61,6 +61,51 @@ body:not(.dark) {
 }
 
 /* ═══════════════════════════════════════════════
+   Name input row (inside greeting)
+═══════════════════════════════════════════════ */
+.name-row {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 12px;
+}
+
+#name-input {
+  padding: 6px 12px;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  font-size: 0.85rem;
+  outline: none;
+  width: 180px;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+#name-input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+#name-input:focus {
+  border-color: #fff;
+  background: rgba(255, 255, 255, 0.25);
+}
+
+#btn-save-name {
+  background: rgba(255, 255, 255, 0.25);
+  color: #fff;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-size: 0.85rem;
+  transition: background 0.2s;
+}
+
+#btn-save-name:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* ═══════════════════════════════════════════════
    Dashboard grid
 ═══════════════════════════════════════════════ */
 .dashboard {

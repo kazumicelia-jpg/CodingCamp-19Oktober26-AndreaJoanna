@@ -35,19 +35,27 @@ btnTheme.addEventListener('click', () => {
 ══════════════════════════════════════════════════════════ */
 const greetingMsg = document.getElementById('greeting-msg');
 const datetimeEl  = document.getElementById('datetime');
+const nameInput   = document.getElementById('name-input');
+const btnSaveName = document.getElementById('btn-save-name');
+
+// Load saved name on startup
+let userName = loadLS('userName', '');
+if (userName) nameInput.value = userName;
 
 function getGreeting(hour) {
-  if (hour >= 5  && hour < 12) return '☀️ Good morning!';
-  if (hour >= 12 && hour < 17) return '🌤 Good afternoon!';
-  if (hour >= 17 && hour < 21) return '🌇 Good evening!';
-  return '🌙 Good night!';
+  if (hour >= 5  && hour < 12) return '☀️ Good morning';
+  if (hour >= 12 && hour < 17) return '🌤 Good afternoon';
+  if (hour >= 17 && hour < 21) return '🌇 Good evening';
+  return '🌙 Good night';
 }
 
 function updateClock() {
   const now  = new Date();
   const hour = now.getHours();
 
-  greetingMsg.textContent = getGreeting(hour);
+  // Show name in greeting if available
+  const namePart = userName ? `, ${userName}` : '';
+  greetingMsg.textContent = getGreeting(hour) + namePart + '!';
 
   // Format: Monday, 19 October 2026 — 09:45:32
   const dateStr = now.toLocaleDateString('en-GB', {
@@ -56,6 +64,19 @@ function updateClock() {
   const timeStr = now.toLocaleTimeString('en-GB');
   datetimeEl.textContent = `${dateStr} — ${timeStr}`;
 }
+
+function saveName() {
+  const newName = nameInput.value.trim();
+  userName = newName;
+  saveLS('userName', newName);
+  updateClock();
+  // Brief visual feedback
+  btnSaveName.textContent = '✓ Saved';
+  setTimeout(() => { btnSaveName.textContent = 'Save'; }, 1500);
+}
+
+btnSaveName.addEventListener('click', saveName);
+nameInput.addEventListener('keydown', e => { if (e.key === 'Enter') saveName(); });
 
 updateClock();
 setInterval(updateClock, 1000);
