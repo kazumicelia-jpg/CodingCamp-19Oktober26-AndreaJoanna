@@ -9,10 +9,14 @@
 
 body {
   font-family: 'Segoe UI', Arial, sans-serif;
-  background: #f0f4f8;
-  color: #2d3748;
   min-height: 100vh;
   transition: background 0.3s, color 0.3s;
+}
+
+/* Light mode defaults */
+body:not(.dark) {
+  background: #f0f4f8;
+  color: #2d3748;
 }
 
 /* ═══════════════════════════════════════════════
@@ -72,11 +76,14 @@ body {
    Card
 ═══════════════════════════════════════════════ */
 .card {
-  background: #fff;
   border-radius: 16px;
   padding: 24px;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
   transition: background 0.3s, box-shadow 0.3s;
+}
+
+body:not(.dark) .card {
+  background: #fff;
 }
 
 .card h2 {
@@ -186,11 +193,14 @@ button:active {
   display: flex;
   align-items: center;
   gap: 10px;
-  background: #f7fafc;
   border-radius: 8px;
   padding: 10px 12px;
   border: 1px solid #e2e8f0;
   transition: background 0.3s, border-color 0.3s;
+}
+
+body:not(.dark) .todo-item {
+  background: #f7fafc;
 }
 
 .todo-item input[type="checkbox"] {
@@ -299,15 +309,18 @@ button:active {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: #ebf4ff;
   border: 1px solid #bee3f8;
   border-radius: 30px;
   padding: 6px 14px;
   font-size: 0.85rem;
-  color: #2b6cb0;
   text-decoration: none;
   font-weight: 600;
   transition: background 0.15s;
+}
+
+body:not(.dark) .link-chip {
+  background: #ebf4ff;
+  color: #2b6cb0;
 }
 
 .link-chip:hover {
